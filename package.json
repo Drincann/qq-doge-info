@@ -1,0 +1,19 @@
+{
+  "name": "qq-doge",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mirai-js": "^1.7.3",
+    "ws": "^7.4.5"
+  },
+  "devDependencies": {
+    "eslint": "^7.25.0"
+  }
+}
