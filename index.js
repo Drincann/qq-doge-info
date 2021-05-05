@@ -58,10 +58,41 @@ const watchedMap = read();
           price: matched[2] - 0,
         }
         save(watchedMap);
+        data.type == 'FriendMessage' &&
+          bot.sendMessage({
+            friend: data.sender.id,
+            message: new Message().addPlain('添加成功'),
+          });
+        data.type == 'GroupMessage' &&
+          bot.sendMessage({
+            group: data.sender.group.id,
+            message: new Message().addPlain('添加成功'),
+          });
         await next();
       }
     })
     .done()
   );
 
+  bot.on(['FriendMessage', 'GroupMessage'], new Middleware().textProcessor()
+    .use(async (data, next) => {
+      const matched = data.text.match(/^\/delwatch\s(.*)/);
+      if (matched?.length == 2) {
+        delete watchedMap[matched[1]];
+        save(watchedMap);
+        data.type == 'FriendMessage' &&
+          bot.sendMessage({
+            friend: data.sender.id,
+            message: new Message().addPlain('删除成功'),
+          });
+        data.type == 'GroupMessage' &&
+          bot.sendMessage({
+            group: data.sender.group.id,
+            message: new Message().addPlain('删除成功'),
+          });
+        await next();
+      }
+    })
+    .done()
+  );
 })();
